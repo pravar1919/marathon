@@ -45,11 +45,12 @@
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
         <script>
-            $("#rzp-button1").on("submit", (e)=>{
+            $("#rzp-button1").on("click", (e)=>{
                 e.preventDefault()
                 name = $("#name").val()
                 email = $("#email").val()
                 p_number = $("#p_number").val()
+                if (!name && !email && !p_number) return
                 $.ajax({
                         type:"POST",
                         url: "/",
@@ -58,7 +59,7 @@
                             mobile:p_number, 
                             csrfmiddlewaretoken: '{{ csrf_token }}'},
                         success: function( data ){
-                            console.log(data)
+                            //console.log(data)
                             var options = {
                                 "key": "rzp_test_vmaQRd7HwbR8NZ", // Enter the Key ID generated from the Dashboard
                                 "amount": data.payment.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
